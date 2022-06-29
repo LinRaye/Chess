@@ -18,4 +18,48 @@ public class Pieces{
         int imgy = cb.y + (8 - position_y) * cb.size;
         image(img, imgx, imgy,80,80);
     }
+    public void showMoves() {
+        switch(name) {
+            case "p":
+                pawnMoves();
+                break;
+            case "knight":
+                break;
+            case "b":
+                break;
+            case "r":
+                break;
+            case "q":
+                break;
+            case "k":
+                break;
+        }
+    }
+    public void pawnMoves() {
+        if (WB.equals("w")) {
+            int cx = cb.x + (position_x - 'A') * cb.size;
+            int cy = cb.y + (8 - position_y) * cb.size;
+            cy -= cb.size;
+            circle(cx, cy, 15);
+            cy -= cb.size;
+            circle(cx, cy, 15);
+        } else {
+            int cx = cb.x + (position_x - 'A') * cb.size;
+            int cy = cb.y + (8 - position_y) * cb.size;
+            cy += cb.size;
+            circle(cx, cy, 15);
+            cy += cb.size;
+            circle(cx, cy, 15);
+        }
+    }
+    public boolean mouseOver() {
+        int cx = cb.x + (position_x - 'A') * cb.size;
+        int cy = cb.y + (8 - position_y) * cb.size;
+        if (dist(cx, cy, mouseX, mouseY)<cb.size / 2) {
+            return true;
+        } else{
+            return false;
+        }
+        
+    }
 }
