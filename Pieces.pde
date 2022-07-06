@@ -11,19 +11,24 @@ public class Pieces{
         this.name = name;
         this.WB = WB;
         this.cb = cb;
-        img = loadImage("icons/" + WB + name + ".png");
+        if (this.name.contains("_") == false) {
+            img = loadImage("icons/" + WB + name + ".png");
+        }
     }
     public void show() {    
-        int imgx = cb.x + (position_x - 'A') * cb.size;
-        int imgy = cb.y + (8 - position_y) * cb.size;
-        image(img, imgx, imgy,80,80);
+        int cx = cb.x + (position_x - 'A') * cb.size;
+        int cy = cb.y + (8 - position_y) * cb.size;
+        if (img == null) {
+            circle(cx, cy, 15);
+        } else {
+            image(img, cx, cy, 80, 80);
+        }
     }
-    public void showMoves() {
+    public ArrayList<Pieces> showMoves() {
         switch(name) {
             case "p":
-                pawnMoves();
-                break;
-            case "knight":
+                return pawnMoves();
+                case"knight":
                 break;
             case "b":
                 break;
@@ -34,24 +39,26 @@ public class Pieces{
             case "k":
                 break;
         }
+        return new ArrayList<Pieces>();
     }
-    public void pawnMoves() {
+    public ArrayList<Pieces> pawnMoves() {
+        ArrayList<Pieces> ps = new ArrayList<>();
         if (WB.equals("w")) {
-            int cx = cb.x + (position_x - 'A') * cb.size;
-            int cy = cb.y + (8 - position_y) * cb.size;
-            cy -= cb.size;
-            circle(cx, cy, 15);
-            cy -= cb.size;
-            circle(cx, cy, 15);
+            Pieces p1 = new Pieces(position_x, position_y + 1, name + "_", WB, cb);
+            Pieces p2 = new Pieces(position_x, position_y + 2, name + "_", WB, cb);
+            ps.add(p1);
+            ps.add(p2);
         } else {
-            int cx = cb.x + (position_x - 'A') * cb.size;
-            int cy = cb.y + (8 - position_y) * cb.size;
-            cy += cb.size;
-            circle(cx, cy, 15);
-            cy += cb.size;
-            circle(cx, cy, 15);
+            Pieces p1 = new Pieces(position_x, position_y - 1, name + "_", WB, cb);
+            Pieces p2 = new Pieces(position_x, position_y - 2, name + "_", WB, cb);
+            ps.add(p1);
+            ps.add(p2);
         }
+        return ps;
     }
+    /**
+    if the mouse is touching the pieces.
+    */
     public boolean mouseOver() {
         int cx = cb.x + (position_x - 'A') * cb.size;
         int cy = cb.y + (8 - position_y) * cb.size;
