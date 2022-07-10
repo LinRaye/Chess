@@ -27,6 +27,7 @@ void draw() {
         if (s.mouseOver() &&  click) {
             selected.position_x = s.position_x;
             selected.position_y = s.position_y;
+            selected.moved();
             selectedMoves.clear();
             selected = null; 
             click = false;

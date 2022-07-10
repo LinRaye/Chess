@@ -1,5 +1,5 @@
 public class ChessBoard {
-    int x;
+    int x; 
     int y;
     int size;
     public ChessBoard(int x, int y, int size) {
@@ -10,7 +10,7 @@ public class ChessBoard {
     public void draw() {
         int mx = x;
         int my = y;
-        for (int i = 0; i < 8; ++i) {
+        for (int i = 0; i < 8; ++i) { 
             for (int j = 0; j < 8; ++j) {
                 if ((i + j) % 2 ==  0) {
                     fill(118, 150, 86);
@@ -24,5 +24,10 @@ public class ChessBoard {
             my += size;
             mx = x;
         }
+    }
+    public int[] getXY(Pieces p) {
+        int cx = x + (p.position_x - 'A') * size;
+        int cy = y + (8 - p.position_y) * size;
+        return new int[]{cx, cy};
     }
 }

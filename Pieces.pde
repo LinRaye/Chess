@@ -3,9 +3,11 @@ public class Pieces{
     String WB;
     ChessBoard cb;
     char position_x;
-    int position_y; 
+    int position_y;
+    int step;
     PImage img; 
     public Pieces(char position_x, int position_y, String name, String WB, ChessBoard cb) {
+        this.step = 0;
         this.position_x = position_x;
         this.position_y = position_y;
         this.name = name;
@@ -15,13 +17,12 @@ public class Pieces{
             img = loadImage("icons/" + WB + name + ".png");
         }
     }
-    public void show() {    
-        int cx = cb.x + (position_x - 'A') * cb.size;
-        int cy = cb.y + (8 - position_y) * cb.size;
+    public void show() {
+        int[] XY = cb.getXY(this);
         if (img == null) {
-            circle(cx, cy, 15);
+            circle(XY[0], XY[1], 15);
         } else {
-            image(img, cx, cy, 80, 80);
+            image(img, XY[0], XY[1], 80, 80);
         }
     }
     public ArrayList<Pieces> showMoves() {
@@ -43,15 +44,16 @@ public class Pieces{
     }
     public ArrayList<Pieces> pawnMoves() {
         ArrayList<Pieces> ps = new ArrayList<>();
+        int sign;
         if (WB.equals("w")) {
-            Pieces p1 = new Pieces(position_x, position_y + 1, name + "_", WB, cb);
-            Pieces p2 = new Pieces(position_x, position_y + 2, name + "_", WB, cb);
-            ps.add(p1);
-            ps.add(p2);
+            sign = 1;
         } else {
-            Pieces p1 = new Pieces(position_x, position_y - 1, name + "_", WB, cb);
-            Pieces p2 = new Pieces(position_x, position_y - 2, name + "_", WB, cb);
-            ps.add(p1);
+            sign =-  1;
+        } 
+        Pieces p1 = new Pieces(position_x, position_y + 1 * sign, name + "_", WB, cb);
+        ps.add(p1);
+        if (step ==  0) {
+            Pieces p2 = new Pieces(position_x, position_y + 2 * sign, name + "_", WB, cb);
             ps.add(p2);
         }
         return ps;
@@ -60,13 +62,14 @@ public class Pieces{
     if the mouse is touching the pieces.
     */
     public boolean mouseOver() {
-        int cx = cb.x + (position_x - 'A') * cb.size;
-        int cy = cb.y + (8 - position_y) * cb.size;
-        if (dist(cx, cy, mouseX, mouseY)<cb.size / 2) {
+        int[] XY = cb.getXY(this);
+        if (dist(XY[0], XY[1], mouseX, mouseY)<cb.size / 2) {
             return true;
         } else{
             return false;
         }
-        
+    }
+    public void moved() {
+        step++;
     }
 }
