@@ -50,6 +50,7 @@ public class Pieces{
         } else {
             sign =-  1;
         } 
+        // before adding p1, p2 we should check if the square is occupied by other pieces 
         Pieces p1 = new Pieces(position_x, position_y + 1 * sign, name + "_", WB, cb);
         ps.add(p1);
         if (step ==  0) {
