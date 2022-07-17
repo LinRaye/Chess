@@ -23,6 +23,9 @@ void setup() {
 void draw() {
     background(0);  
     board.draw();
+    for (Pieces p : pieces) {
+        p.show();
+    }
     // decide which square to move to
     for (Pieces s : selectedMoves) {
         s.show();
@@ -36,13 +39,25 @@ void draw() {
             break;
         }
     }
+    for (Pieces s : selectedAttack) {
+        s.show();
+        if (s.mouseOver() &&  click) {
+            selected.position_x = s.position_x;
+            selected.position_y = s.position_y;
+            selected.moved();
+            removePieces(s);
+            selectedAttack.clear();
+            selected = null; 
+            click = false;
+            break;
+        }
+    }
     // click action
     if (click) {
         selected = null;
         selectedMoves.clear();
     }
     for (Pieces p : pieces) {
-        p.show();
         if (p.mouseOver() &&  click) {
             selected = p;
             selectedMoves.clear();
@@ -87,4 +102,15 @@ boolean canAttack(Pieces p) {
         }    
     }
     return false;
+}
+void removePieces(Pieces p) {
+    for (int i = 0; i < pieces.size(); i++) {
+        Pieces t = pieces.get(i);
+        if (p.position_x ==  t.position_x &&  t.position_y ==  p.position_y) {
+            if (t.WB.equals(p.WB) ==  false) {
+                pieces.remove(i);
+                break;
+            }
+        }    
+    }   
 }

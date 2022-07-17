@@ -21,8 +21,10 @@ public class Pieces{
         int[] XY = cb.getXY(this);
         if (img == null) {
             if (this.name.contains("_")) {
+                fill(0);
                 circle(XY[0], XY[1], 15);
             } else {
+                fill(255, 0, 0);
                 rect(XY[0], XY[1], 15, 15);
             }
         } else {
