@@ -97,9 +97,7 @@ public class Pieces{
         ps.add(p2);
         return ps;
     }
-    /**
-    if the mouse is touching the pieces.
-    */
+    // if the mouse is touching the pieces.
     public boolean mouseOver() {
         int[] XY = cb.getXY(this);
         if (dist(XY[0], XY[1], mouseX, mouseY)<cb.size / 2) {

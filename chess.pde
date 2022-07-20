@@ -56,6 +56,7 @@ void draw() {
     if (click) {
         selected = null;
         selectedMoves.clear();
+        selectedAttack.clear();
     }
     for (Pieces p : pieces) {
         if (p.mouseOver() &&  click) {
