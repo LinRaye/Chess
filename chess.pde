@@ -33,30 +33,30 @@ void draw() {
             selected.position_x = s.position_x;
             selected.position_y = s.position_y;
             selected.moved();
+            selected = null;
             selectedMoves.clear();
-            selected = null; 
+            selectedAttack.clear();
             click = false;
             break;
         }
     }
     for (Pieces s : selectedAttack) {
         s.show();
+        System.err.println("s : " + s);
         if (s.mouseOver() &&  click) {
             selected.position_x = s.position_x;
             selected.position_y = s.position_y;
             selected.moved();
-            removePieces(s);
+            
+            if (removePieces(s) ==  false) {
+                // En passant(unusual pawn attack)
+            }
             selectedAttack.clear();
+            selectedMoves.clear();
             selected = null; 
             click = false;
             break;
         }
-    }
-    // click action
-    if (click) {
-        selected = null;
-        selectedMoves.clear();
-        selectedAttack.clear();
     }
     for (Pieces p : pieces) {
         if (p.mouseOver() &&  click) {
@@ -75,10 +75,17 @@ void draw() {
                 Pieces g = h.get(i);
                 if (canAttack(g)) {
                     selectedAttack.add(g);
+                    System.err.println(i);
                 }
             }
             click = false;
         }
+    }
+    // click action
+    if (click) {
+        selected = null;
+        selectedMoves.clear();
+        selectedAttack.clear();
     }
 }
 void mouseClicked() {
@@ -96,22 +103,29 @@ boolean canMove(Pieces p) {
 boolean canAttack(Pieces p) {
     for (int i = 0; i < pieces.size(); i++) {
         Pieces t = pieces.get(i);
+        if (t.WB.equals(p.WB)) {
+            continue;
+        }
         if (p.position_x ==  t.position_x &&  t.position_y ==  p.position_y) {
-            if (t.WB.equals(p.WB) ==  false) {
-                return true;
-            }
+            System.err.println(t);
+            return true;
+        } else if (t.name.equals("p") &&  t.step ==  1 &&  abs(t.position_y - p.position_y) ==  1) {// En passant
+            System.err.println(t);
+            return true;
         }    
     }
     return false;
 }
-void removePieces(Pieces p) {
+boolean removePieces(Pieces p) {
     for (int i = 0; i < pieces.size(); i++) {
         Pieces t = pieces.get(i);
+        if (t.WB.equals(p.WB)) {
+            continue;
+        }
         if (p.position_x ==  t.position_x &&  t.position_y ==  p.position_y) {
-            if (t.WB.equals(p.WB) ==  false) {
-                pieces.remove(i);
-                break;
-            }
-        }    
+            pieces.remove(i);
+            return true;
+        }
     }   
+    return false;
 }

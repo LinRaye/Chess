@@ -109,4 +109,7 @@ public class Pieces{
     public void moved() {
         step++;
     }
+    public String toString() {
+        return "name : " + name + ":" + position_x + position_y;
+    }
 }
