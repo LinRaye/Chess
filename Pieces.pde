@@ -13,7 +13,7 @@ public class Pieces{
         this.name = name;
         this.WB = WB;
         this.cb = cb;
-        if (this.name.contains("_") == false ||  this.name.contains("@") == false) {
+        if (this.name.contains("_") == false &&  this.name.contains("@") == false) {
             img = loadImage("icons/" + WB + name + ".png");
         }
     }
