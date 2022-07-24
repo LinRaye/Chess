@@ -2,7 +2,6 @@ ChessBoard board;
 PImage img; 
 ArrayList<Pieces> pieces = new ArrayList<Pieces>();
 ArrayList<Pieces> selectedMoves = new ArrayList<Pieces>();
-ArrayList<Pieces> selectedAttack = new ArrayList<Pieces>();
 Pieces selected;
 String[] piecesLocation = {"r", "knight", "b", "q", "k", "b", "knight", "r"};
 boolean click = false;
@@ -33,24 +32,11 @@ void draw() {
             selected.position_x = s.position_x;
             selected.position_y = s.position_y;
             selected.moved();
+            if (s.name.contains(Pieces.ATTACK_SYMBOL)) {
+                canAttack(s,true);// eat    
+            }
             selected = null;
             selectedMoves.clear();
-            selectedAttack.clear();
-            click = false;
-            break;
-        }
-    }
-    for (Pieces s : selectedAttack) {
-        s.show();
-        //System.err.println("s : " + s);
-        if (s.mouseOver() &&  click) {
-            selected.position_x = s.position_x;
-            selected.position_y = s.position_y;
-            selected.moved();
-            canAttack(s,true);
-            selectedAttack.clear();
-            selectedMoves.clear();
-            selected = null; 
             click = false;
             break;
         }
@@ -59,7 +45,6 @@ void draw() {
         if (p.mouseOver() &&  click) {
             selected = p;
             selectedMoves.clear();
-            selectedAttack.clear();
             ArrayList<Pieces> z = selected.showMoves();
             for (int i = 0; i < z.size(); i++) {
                 Pieces g = z.get(i);
@@ -70,15 +55,15 @@ void draw() {
             ArrayList<Pieces> h = selected.showAttack();
             for (int i = 0; i < h.size(); i++) {
                 Pieces g = h.get(i);
-                if (canAttack(g,false)) {
-                    selectedAttack.add(g);
-                    System.err.println(g);
+                if (canAttack(g,false)) {// find red square
+                    selectedMoves.add(g);
+                    // System.err.println(g);
                 } else{
                     // System.err.println("x" + g);
                 }
             }
             // System.err.println("________________");
-            // System.err.println(selectedAttack);
+            // System.err.println(selectedMove);
             // System.err.println("++++++++++++++++");
             click = false;
         }
@@ -87,7 +72,6 @@ void draw() {
     if (click) {
         selected = null;
         selectedMoves.clear();
-        selectedAttack.clear();
     }
 }
 void mouseClicked() {

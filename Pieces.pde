@@ -2,6 +2,8 @@ public class Pieces{
     ChessBoard cb;
     String name;
     String WB;
+    static final String ATTACK_SYMBOL = "@";
+    static final String MOVE_SYMBOL = "_";
     int position_y;
     int step;
     char position_x;
@@ -13,14 +15,14 @@ public class Pieces{
         this.name = name;
         this.WB = WB;
         this.cb = cb;
-        if (this.name.contains("_") == false &&  this.name.contains("@") == false) {
+        if (this.name.contains(MOVE_SYMBOL) == false &&  this.name.contains(ATTACK_SYMBOL) == false) {
             img = loadImage("icons/" + WB + name + ".png");
         }
     }
     public void show() {
         int[] XY = cb.getXY(this);
         if (img == null) {
-            if (this.name.contains("_")) {
+            if (this.name.contains(MOVE_SYMBOL)) {
                 fill(0);
                 circle(XY[0], XY[1], 15);
             } else {
@@ -74,10 +76,10 @@ public class Pieces{
             sign =-  1;
         } 
         // before adding p1, p2 we should check if the square is occupied by other pieces 
-        Pieces p1 = new Pieces(position_x, position_y + 1 * sign, name + "_", WB, cb);
+        Pieces p1 = new Pieces(position_x, position_y + 1 * sign, name + MOVE_SYMBOL, WB, cb);
         ps.add(p1);
         if (step ==  0) {
-            Pieces p2 = new Pieces(position_x, position_y + 2 * sign, name + "_", WB, cb);
+            Pieces p2 = new Pieces(position_x, position_y + 2 * sign, name + MOVE_SYMBOL, WB, cb);
             ps.add(p2);
         }
         return ps;
@@ -91,8 +93,8 @@ public class Pieces{
             sign =-  1;
         } 
         // before adding p1, p2 we should check if the square is occupied by other pieces 
-        Pieces p1 = new Pieces((char)(position_x + 1) , position_y + 1 * sign, name + "@", WB, cb);
-        Pieces p2 = new Pieces((char)(position_x - 1) , position_y + 1 * sign, name + "@", WB, cb);
+        Pieces p1 = new Pieces((char)(position_x + 1) , position_y + 1 * sign, name + ATTACK_SYMBOL, WB, cb);
+        Pieces p2 = new Pieces((char)(position_x - 1) , position_y + 1 * sign, name + ATTACK_SYMBOL, WB, cb);
         ps.add(p1);
         ps.add(p2);
         return ps;
