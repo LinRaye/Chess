@@ -1,12 +1,12 @@
 public class Pieces{
     ChessBoard cb;
-    String name;
-    String WB;
     static final String ATTACK_SYMBOL = "@";
     static final String MOVE_SYMBOL = "_";
+    String name;
+    String WB;
+    char position_x;
     int position_y;
     int step;
-    char position_x;
     PImage img; 
     public Pieces(char position_x, int position_y, String name, String WB, ChessBoard cb) {
         this.step = 0;
