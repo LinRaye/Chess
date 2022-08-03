@@ -49,7 +49,7 @@ void draw() {
         }                                                                      
     }
     if (promote ==  true) {
-        
+        // to do : promote action
     } else {
         chooseMove();
     }                                                                     
