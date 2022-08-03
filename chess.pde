@@ -20,6 +20,24 @@ void setup() {
     imageMode(CENTER);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void draw() {
     background(0);  
     board.draw();
