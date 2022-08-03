@@ -19,6 +19,7 @@ void setup() {
     rectMode(CENTER);
     imageMode(CENTER);
 }
+
 void draw() {
     background(0);  
     board.draw();
