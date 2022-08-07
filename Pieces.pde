@@ -15,6 +15,13 @@ public class Pieces{
         this.name = name;
         this.WB = WB;
         this.cb = cb;
+        updateImg();
+    }
+    public void promoteInto(String p) {
+        name = p;
+        updateImg();
+    }
+    public void updateImg() {
         if (this.name.contains(MOVE_SYMBOL) == false &&  this.name.contains(ATTACK_SYMBOL) == false) {
             img = loadImage("icons/" + WB + name + ".png");
         }

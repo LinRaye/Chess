@@ -1,14 +1,17 @@
-ChessBoard board;
 PImage img; 
+ChessBoard board;
+Promote pawnPromote;
 ArrayList<Pieces> pieces = new ArrayList<Pieces>();
 ArrayList<Pieces> selectedMoves = new ArrayList<Pieces>();
 Pieces selected;
+Pieces promotePiece;
 String[] piecesLocation = {"r", "knight", "b", "q", "k", "b", "knight", "r"};
 boolean click = false;
 boolean promote = false;
 void setup() {
     size(1800, 900);
     board = new ChessBoard(135, 135,90);
+    pawnPromote = new Promote(1000, 90);
     for (int i = 0; i < piecesLocation.length; ++i) {
         char c = (char)('A' + i);
         pieces.add(new Pieces(c, 8, piecesLocation[i],"b", board));
@@ -39,8 +42,10 @@ void draw() {
             // 1. has to be pawn 2. has to move to the end of the chessboard 3. promote
             if (selected.name.equals("p") &&  selected.position_y ==  8) {
                 promote = true;
+                promotePiece = selected;
             } else if (selected.name.equals("p") &&  selected.position_y ==  1) {
                 promote = true;
+                promotePiece = selected;
             }
             selected = null;                                                                     
             selectedMoves.clear();                                                                      
@@ -49,7 +54,12 @@ void draw() {
         }                                                                      
     }
     if (promote ==  true) {
-        // to do : promote action
+        String c = pawnPromote.draw();
+        if (c != null) {
+            promotePiece.promoteInto(c);
+            promotePiece = null;
+            promote = false;
+        }
     } else {
         chooseMove();
     }                                                                     
