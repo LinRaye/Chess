@@ -62,7 +62,7 @@ void draw() {
         }
     } else {
         chooseMove();
-    }                                                                     
+    }                 
     // click action
     if (click) {
         selected = null;
@@ -112,7 +112,7 @@ boolean canAttack(Pieces p, boolean remove) {
     return false;
 }
 void chooseMove() {
-    for (Pieces p : pieces) {                                                                      
+    for (Pieces p : pieces) {
         if (p.mouseOver() &&  click) {
             selected = p;
             selectedMoves.clear();
@@ -123,6 +123,7 @@ void chooseMove() {
                     selectedMoves.add(g);
                 }
             }
+            findCannotMove(selectedMoves, selected);	
             ArrayList<Pieces> h = selected.showAttack();
             for (int i = 0; i < h.size(); i++) {
                 Pieces g = h.get(i);
@@ -138,5 +139,19 @@ void chooseMove() {
             // System.err.println("++++++++++++++++");
             click = false;
         }
+    }
+}
+void findCannotMove(ArrayList<Pieces> ps, Pieces target) {
+    for (int i = target.position_y; i <=  8; i++) {
+        
+    }
+    for (int i = target.position_y; i > 0; i--) {
+        
+    }
+    for (char i = target.position_x; i <=  'H'; i++) {
+        
+    }
+    for (char i = target.position_x; i >= 'A'; i--) {
+        
     }
 }

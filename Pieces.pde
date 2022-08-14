@@ -49,8 +49,8 @@ public class Pieces{
             case "b":
                 break;
             case "r":
-                break;
-            case "q":
+                return rookMoves();
+                case"q":
                 break;
             case "k":
                 break;
@@ -67,8 +67,8 @@ public class Pieces{
                 break;
             case "r":
                 break;
-            case "q":
-                break;
+            case"q":
+            break;
             case "k":
                 break;
         }
@@ -79,7 +79,7 @@ public class Pieces{
         int sign;
         if (WB.equals("w")) {
             sign = 1;
-        } else {
+        } else {    
             sign =-  1;
         } 
         // before adding p1, p2 we should check if the square is occupied by other pieces 
@@ -105,6 +105,26 @@ public class Pieces{
         ps.add(p1);
         ps.add(p2);
         return ps;
+    }
+    public ArrayList<Pieces> rookMoves() {
+        ArrayList<Pieces> rook = new ArrayList<>();
+        for (int i = 1; i <= 8; i++) {
+            if (i!= position_y) {
+                Pieces p1 = new Pieces(position_x, i, name + MOVE_SYMBOL, WB, cb);
+                rook.add(p1);
+            } else {
+                continue;
+            }
+        }
+        for (char i = 'A'; i <= 'H'; i++) {
+            if (i!= position_x) {
+                Pieces p2 = new Pieces(i, position_y, name + MOVE_SYMBOL, WB, cb);
+                rook.add(p2);
+            } else {
+                continue;
+            }
+        }
+        return rook;
     }
     // if the mouse is touching the pieces.
     public boolean mouseOver() {
