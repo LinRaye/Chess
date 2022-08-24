@@ -142,6 +142,14 @@ void chooseMove() {
     }
 }
 void findCannotMove(ArrayList<Pieces> ps, Pieces target) {
+//1.  把黑棋子放進格子
+//for ( gray_pieces : ps ){
+//     matrix[gray_pieces.x ] [gray_pieces.y] = gray_pieces;
+//}
+//2. 從 target 往上、下、左、右去走。
+//遇到的黑棋要做記號
+//3. 沒有做記號的黑棋子
+//就是要刪掉的黑棋子  
     for (int i = target.position_y; i <=  8; i++) {
         
     }
